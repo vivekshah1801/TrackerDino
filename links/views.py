@@ -8,12 +8,15 @@ from uuid import uuid4
 # Create your views here.
 def view(request):
     # TODO provide better serialization method
-    return JsonResponse([model_to_dict(x) for x in Link.objects.all()], safe=False)
+    creator = request.GET.get("creator")
+    if not creator:
+        return JsonResponse([model_to_dict(x) for x in Link.objects.all()], safe=False)
+    return JsonResponse([model_to_dict(x) for x in Link.objects.filter(creator=creator)], safe=False)
 
 def create(request):
-    # userid = request.GET.get("userid", None)
+    creator = request.GET.get("creator")
     name = request.GET.get("name")
-    link = Link(creator=None, name=name)
+    link = Link(name=name, creator=creator)
     link.save()
     return JsonResponse({
         "status": True,

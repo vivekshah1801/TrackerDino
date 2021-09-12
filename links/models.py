@@ -16,4 +16,4 @@ class Link(models.Model):
     creator = models.CharField(_("Creator"), max_length=100) 
 
     def __str__(self):
-        return f"Link: <{self.uuid}> [{self.creator}]"
+        return f"Link: {self.name} <{self.uuid}>"
