@@ -11,12 +11,13 @@ def view(request):
     return JsonResponse([model_to_dict(x) for x in Link.objects.all()], safe=False)
 
 def create(request):
-    userid = request.POST.get("userid", None)
-    link = Link(creator=userid)
+    # userid = request.GET.get("userid", None)
+    name = request.GET.get("name")
+    link = Link(creator=None, name=name)
     link.save()
     return JsonResponse({
         "status": True,
-        "tracker": "http://" + request.get_host() + "/tracker/" + str(link.uuid),
+        "tracker": "http://" + request.get_host() + "/track/" + str(link.uuid),
         "data": model_to_dict(link),
     })
 

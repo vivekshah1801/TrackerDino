@@ -22,5 +22,5 @@ urlpatterns = [
     path('health/', health, name="health"),
     # path('users/', include(users.urls)),
     path('links/', include("links.urls")),
-    path('visits/', include("visits.urls")),
+    path('track/<uuid>', include("visits.urls")),
 ]
